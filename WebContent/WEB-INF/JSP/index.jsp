@@ -1,4 +1,5 @@
-<%--@elvariable id="genres" type="be.vdab.servlets.indexservlet"--%>
+<%--@elvariable id="genre" type="be.vdab.servlets.indexservlet"--%>
+<%--@elvariable id="voorstellingen" type="be.vdab.servlets.IndexServlet"--%>
 
 <%-- Written by Samuel Engelen | Date: 13/05/2015 --%>
 
@@ -8,15 +9,35 @@
 <!doctype html>
 <html lang="nl">
 <head>
-    <vdab:head title="Het Cultuurhuis:voorstellingen"/>
+    <vdab:head title="Het Cultuurhuis"/>
 </head>
 <body>
-    <h1>Het Cultuurhuis:voorstellingen<img src="<c:url value="/images/voorstellingen.png"/>" alt="voorstellingen" class="floating"/></h1>
-        <h2>Genres</h2>
-            <nav>
-                <c:forEach var="genre" items="${genres}">
-                    <a href="<c:url value="/index.htm?genre=${genre.id}"/>">${genre.naam}</a>
+    <vdab:menu pagina="voorstellingen"/>
+        <h2>${genre} voorstellingen</h2>
+            <table class="zebra">
+                <tr>
+                    <th>Datum</th>
+                    <th>Titel</th>
+                    <th>Uitvoerders</th>
+                    <th>Prijs</th>
+                    <th>Vrije plaatsen</th>
+                    <th>Reserveren</th>
+                </tr>
+                <c:forEach var="voorstelling" items="${voorstellingen}">
+                    <tr>
+                        <td>${voorstelling.datum}</td>
+                        <td>${voorstelling.titel}</td>
+                        <td>${voorstelling.uitvoerders}</td>
+                        <td>${voorstelling.prijs}</td>
+                        <td>${voorstelling.vrijeplaatsen}</td>
+                        <c:if test="${voorstelling.vrijeplaatsen > 0}">
+                            <td>Reserveren</td>
+                        </c:if>
+                        <c:otherwise>
+                            <td></td>
+                        </c:otherwise>
+                    </tr>
                 </c:forEach>
-            </nav>
+            </table>
 </body>
 </html>

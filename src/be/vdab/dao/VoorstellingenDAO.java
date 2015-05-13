@@ -1,7 +1,12 @@
 package be.vdab.dao;
 
 import be.vdab.entities.Genre;
-import java.sql.*;
+import be.vdab.entities.Voorstelling;
+
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
@@ -10,49 +15,51 @@ import java.util.logging.Logger;
 /**
  * Created by Samuel Engelen on 28/04/2015.
  */
-public class GenresDAO extends AbstractDAO {
-    private final static Logger logger = Logger.getLogger(GenresDAO.class.getName());
+public class VoorstellingenDAO extends AbstractDAO {
+    private final static Logger logger = Logger.getLogger(VoorstellingenDAO.class.getName());
 
-    private static final String BEGIN_SELECT = "select * from genres ";
-    private static final String FIND_ALL_SQL = BEGIN_SELECT + "order by naam";
-    private static final String READ_SQL = BEGIN_SELECT + "WHERE id=?";
+    private static final String BEGIN_SELECT = "SELECT * FROM voorstellingen ";
+    private static final String FIND_ALL_SQL = BEGIN_SELECT + "WHERE genreid = ? AND datum >= NOW() ORDER BY datum";
 //    private static final String GENRE = "where genre ";
 
 
-    public List<Genre> findAll() {
+    public List<Voorstelling> findAll() {
         try (Connection connection = dataSource.getConnection();
              Statement statement = connection.createStatement();
              ResultSet resultSet = statement.executeQuery(FIND_ALL_SQL)) {
-            List<Genre> genres = new ArrayList<>();
+            List<Voorstelling> voorstellingen = new ArrayList<>();
             while (resultSet.next()) {
-                genres.add(resultSetRijNaarGenres(resultSet));
+                voorstellingen.add(resultSetRijNaarVoorstellingen(resultSet));
             }
-            return genres;
+            return voorstellingen;
         } catch (SQLException ex) {
             logger.log(Level.SEVERE, "Probleem met database cultuurhuis", ex);
             throw new DAOException(ex);
         }
     }
 
-    private Genre resultSetRijNaarGenres(ResultSet resultSet) throws SQLException {
-        return new Genre(resultSet.getLong("id"), resultSet.getString("naam"));
+    private Voorstelling resultSetRijNaarVoorstellingen(ResultSet resultSet) throws SQLException {
+        return new Voorstelling(resultSet.getLong("id"), resultSet.getString("titel"),
+                                resultSet.getString("uitvoerders"), resultSet.getDate("datum"),
+                                resultSet.getLong("genreid"), resultSet.getBigDecimal("prijs"),
+                                resultSet.getLong("vrijeplaatsen"));
     }
 
-    public Genre read(long id) {
-        try (Connection connection = dataSource.getConnection();
-             PreparedStatement statement = connection.prepareStatement(READ_SQL)) {
-            statement.setLong(1, id);
-            try (ResultSet resultSet = statement.executeQuery()) {
-                if (resultSet.next()) {
-                    return resultSetRijNaarGenres(resultSet);
-                }
-                return null;
-            }
-        } catch (SQLException ex) {
-            logger.log(Level.SEVERE, "Probleem met database cultuurhuis", ex);
-            throw new DAOException(ex);
-        }
-    }
+//    public Genre read(long id) {
+//        try (Connection connection = dataSource.getConnection();
+//             PreparedStatement statement = connection.prepareStatement(READ_SQL)) {
+//            statement.setLong(1, id);
+//            try (ResultSet resultSet = statement.executeQuery()) {
+//                if (resultSet.next()) {
+//                    return resultSetRijNaarPizza(resultSet);
+//                }
+//                return null;
+//            }
+//        } catch (SQLException ex) {
+//            logger.log(Level.SEVERE, "Probleem met database pizzaluigi", ex);
+//            throw new DAOException(ex);
+//        }
+//    }
 
 //    public List<Pizza> findByPrijsBetween(BigDecimal van, BigDecimal tot) {
 //        try (Connection connection = dataSource.getConnection();
