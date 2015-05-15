@@ -19,13 +19,14 @@ public class GenresDAO extends AbstractDAO {
 //    private static final String GENRE = "where genre ";
 
 
+
     public List<Genre> findAll() {
         try (Connection connection = dataSource.getConnection();
              Statement statement = connection.createStatement();
              ResultSet resultSet = statement.executeQuery(FIND_ALL_SQL)) {
             List<Genre> genres = new ArrayList<>();
             while (resultSet.next()) {
-                genres.add(resultSetRijNaarGenres(resultSet));
+                genres.add(resultSetRijNaarGenre(resultSet));
             }
             return genres;
         } catch (SQLException ex) {
@@ -34,17 +35,17 @@ public class GenresDAO extends AbstractDAO {
         }
     }
 
-    private Genre resultSetRijNaarGenres(ResultSet resultSet) throws SQLException {
+    private Genre resultSetRijNaarGenre(ResultSet resultSet) throws SQLException {
         return new Genre(resultSet.getLong("id"), resultSet.getString("naam"));
     }
 
-    public Genre read(long id) {
+    public Genre read(String id) {
         try (Connection connection = dataSource.getConnection();
              PreparedStatement statement = connection.prepareStatement(READ_SQL)) {
-            statement.setLong(1, id);
+            statement.setString(1, id);
             try (ResultSet resultSet = statement.executeQuery()) {
                 if (resultSet.next()) {
-                    return resultSetRijNaarGenres(resultSet);
+                    return resultSetRijNaarGenre(resultSet);
                 }
                 return null;
             }

@@ -1,4 +1,5 @@
 <%--@elvariable id="genre" type="be.vdab.servlets.indexservlet"--%>
+<%--@elvariable id="genrenaam" type="be.vdab.servlets.indexservlet"--%>
 <%--@elvariable id="voorstellingen" type="be.vdab.servlets.IndexServlet"--%>
 
 <%-- Written by Samuel Engelen | Date: 13/05/2015 --%>
@@ -13,6 +14,7 @@
 </head>
 <body>
     <vdab:menu pagina="voorstellingen"/>
+    <c:if test="${not empty genre}">
         <h2>${genre} voorstellingen</h2>
             <table class="zebra">
                 <tr>
@@ -30,14 +32,13 @@
                         <td>${voorstelling.uitvoerders}</td>
                         <td>${voorstelling.prijs}</td>
                         <td>${voorstelling.vrijeplaatsen}</td>
-                        <c:if test="${voorstelling.vrijeplaatsen > 0}">
-                            <td>Reserveren</td>
+                        <td><c:if test="${voorstelling.vrijeplaatsen > 0}">
+                            Reserveren
                         </c:if>
-                        <c:otherwise>
-                            <td></td>
-                        </c:otherwise>
+                        </td>
                     </tr>
                 </c:forEach>
             </table>
+    </c:if>
 </body>
 </html>

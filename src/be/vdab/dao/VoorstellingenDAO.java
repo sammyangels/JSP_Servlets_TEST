@@ -3,10 +3,7 @@ package be.vdab.dao;
 import be.vdab.entities.Genre;
 import be.vdab.entities.Voorstelling;
 
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
@@ -23,15 +20,17 @@ public class VoorstellingenDAO extends AbstractDAO {
 //    private static final String GENRE = "where genre ";
 
 
-    public List<Voorstelling> findAll() {
+    public List<Voorstelling> findAllPerGenre(Long genreId) {
         try (Connection connection = dataSource.getConnection();
-             Statement statement = connection.createStatement();
-             ResultSet resultSet = statement.executeQuery(FIND_ALL_SQL)) {
-            List<Voorstelling> voorstellingen = new ArrayList<>();
-            while (resultSet.next()) {
-                voorstellingen.add(resultSetRijNaarVoorstellingen(resultSet));
+             PreparedStatement preparedStatement = connection.prepareStatement(FIND_ALL_SQL)) {
+            preparedStatement.setLong(1,genreId);
+            try (ResultSet resultSet = preparedStatement.executeQuery()) {
+                List<Voorstelling> voorstellingen = new ArrayList<>();
+                while (resultSet.next()) {
+                    voorstellingen.add(resultSetRijNaarVoorstellingen(resultSet));
+                }
+                return voorstellingen;
             }
-            return voorstellingen;
         } catch (SQLException ex) {
             logger.log(Level.SEVERE, "Probleem met database cultuurhuis", ex);
             throw new DAOException(ex);

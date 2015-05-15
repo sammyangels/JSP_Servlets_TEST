@@ -31,16 +31,24 @@ public class IndexServlet extends HttpServlet {
 
     }
 
+    @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
+        // Menu van genres instellen
         List<Genre> genres = genresDAO.findAll();
         request.setAttribute("genres", genres);
-        try {
-            request.setAttribute("genre", genresDAO.read(Long.parseLong(request.getParameter("id"))));
-        } catch (NumberFormatException ex) {
-            request.setAttribute("fout", "Genre niet gevonden");
+
+        // Tabel van voorstellingen instellen
+
+        String genreId = request.getParameter("genre");
+        if (genreId != null) {
+            Genre genre = genresDAO.read(genreId);
+            request.setAttribute("genre", genre.getNaam());
+            List<Voorstelling> voorstellingen = voorstellingenDAO.findAllPerGenre(genre.getId());
+            request.setAttribute("voorstellingen", voorstellingen);
+        } else {
+            request.setAttribute("genre", "");
         }
-        List<Voorstelling> voorstellingen = voorstellingenDAO.findAll();
-        request.setAttribute("voorstellingen", voorstellingen);
         request.getRequestDispatcher(VIEW).forward(request, response);
     }
 
