@@ -1,7 +1,7 @@
 package be.vdab.servlets;
 
-import be.vdab.dao.GenresDAO;
-import be.vdab.dao.VoorstellingenDAO;
+import be.vdab.dao.GenreDAO;
+import be.vdab.dao.VoorstellingDAO;
 import be.vdab.entities.Genre;
 import be.vdab.entities.Voorstelling;
 
@@ -13,7 +13,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.sql.DataSource;
 import java.io.IOException;
-import java.util.Calendar;
 import java.util.List;
 
 /**
@@ -24,8 +23,8 @@ public class IndexServlet extends HttpServlet {
     private static final long serialVersionUID = 1L;
     private static final String VIEW = "/WEB-INF/JSP/index.jsp";
 
-    private final transient GenresDAO genresDAO = new GenresDAO();
-    private final transient VoorstellingenDAO voorstellingenDAO = new VoorstellingenDAO();
+    private final transient GenreDAO genreDAO = new GenreDAO();
+    private final transient VoorstellingDAO voorstellingDAO = new VoorstellingDAO();
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
@@ -33,18 +32,19 @@ public class IndexServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        request.setAttribute("pagina", "voorstellingen");
 
         // Menu van genres instellen
-        List<Genre> genres = genresDAO.findAll();
+        List<Genre> genres = genreDAO.findAll();
         request.setAttribute("genres", genres);
 
         // Tabel van voorstellingen instellen
 
         String genreId = request.getParameter("genre");
         if (genreId != null) {
-            Genre genre = genresDAO.read(genreId);
+            Genre genre = genreDAO.findByGenre(genreId);
             request.setAttribute("genre", genre.getNaam());
-            List<Voorstelling> voorstellingen = voorstellingenDAO.findAllPerGenre(genre.getId());
+            List<Voorstelling> voorstellingen = voorstellingDAO.findAllPerGenre(genre.getId());
             request.setAttribute("voorstellingen", voorstellingen);
         } else {
             request.setAttribute("genre", "");
@@ -52,14 +52,14 @@ public class IndexServlet extends HttpServlet {
         request.getRequestDispatcher(VIEW).forward(request, response);
     }
 
-//    @Resource(name = GenresDAO.JNDI_NAME)
+//    @Resource(name = GenreDAO.JNDI_NAME)
 //    void setDataSource(DataSource dataSource) {
-//        genresDAO.setDataSource(dataSource);
+//        genreDAO.setDataSource(dataSource);
 //    }
 
-    @Resource(name = VoorstellingenDAO.JNDI_NAME)
+    @Resource(name = VoorstellingDAO.JNDI_NAME)
     void setDataSource(DataSource dataSource) {
-        genresDAO.setDataSource(dataSource);
-        voorstellingenDAO.setDataSource(dataSource);
+        genreDAO.setDataSource(dataSource);
+        voorstellingDAO.setDataSource(dataSource);
     }
 }

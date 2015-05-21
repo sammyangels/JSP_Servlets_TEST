@@ -14,6 +14,9 @@ public class Klant {
     private String gebruikersnaam;
     private String paswoord;
 
+    public Klant() {
+    }
+
     public Klant(long id, String voornaam, String familienaam, String straat, String huisnr, String postcode, String gemeente, String gebruikersnaam, String paswoord) {
         this.id = id;
         this.voornaam = voornaam;
@@ -96,5 +99,10 @@ public class Klant {
 
     public void setPaswoord(String paswoord) {
         this.paswoord = paswoord;
+    }
+
+    @Override
+    public String toString() {
+        return voornaam + " " + familienaam + " " + straat + " " + huisnr + " " + postcode + " " + gemeente;
     }
 }

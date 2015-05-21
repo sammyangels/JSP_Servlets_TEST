@@ -1,19 +1,22 @@
 <%--@elvariable id="genre" type="be.vdab.servlets.indexservlet"--%>
 <%--@elvariable id="genrenaam" type="be.vdab.servlets.indexservlet"--%>
 <%--@elvariable id="voorstellingen" type="be.vdab.servlets.IndexServlet"--%>
+<%--@elvariable id="pagina" type="be.vdab.servlets.indexservlet"--%>
 
 <%-- Written by Samuel Engelen | Date: 13/05/2015 --%>
 
 <%@page contentType='text/html' pageEncoding='UTF-8' session='false' %>
 <%@taglib prefix="vdab" uri="http://vdab.be/tags" %>
-<%@taglib prefix='c' uri='http://java.sun.com/jsp/jstl/core' %>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<fmt:setLocale value="nl_BE"/>
 <!doctype html>
 <html lang="nl">
 <head>
     <vdab:head title="Het Cultuurhuis"/>
 </head>
 <body>
-    <vdab:menu pagina="voorstellingen"/>
+    <vdab:menu pagina="${pagina}"/>
     <c:if test="${not empty genre}">
         <h2>${genre} voorstellingen</h2>
             <table class="zebra">
@@ -27,13 +30,20 @@
                 </tr>
                 <c:forEach var="voorstelling" items="${voorstellingen}">
                     <tr>
-                        <td>${voorstelling.datum}</td>
+                        <td><fmt:formatDate value="${voorstelling.datum}" type="BOTH" dateStyle="short" timeStyle="short"/></td>
+
+                        <%--TODO Tijd wordt precies niet meegenomen uit de database => controleer of de juiste classes gebruikt worden --%>
+
                         <td>${voorstelling.titel}</td>
                         <td>${voorstelling.uitvoerders}</td>
-                        <td>${voorstelling.prijs}</td>
-                        <td>${voorstelling.vrijeplaatsen}</td>
+                        <td><fmt:formatNumber value="${voorstelling.prijs}" type="currency"/></td>
+                        <td style="text-align:right">${voorstelling.vrijeplaatsen}</td>
                         <td><c:if test="${voorstelling.vrijeplaatsen > 0}">
-                            Reserveren
+                            <c:url value='/reserveren.htm' var='reserverenURL'>
+                                <c:param name='voorstellingsid'
+                                         value='${voorstelling.id}' />
+                            </c:url>
+                            <a href='${reserverenURL}'>Reserveren</a>
                         </c:if>
                         </td>
                     </tr>
