@@ -40,6 +40,39 @@ public class NieuweKlantServlet extends HttpServlet {
                                         request.getParameter("postcode"), request.getParameter("gemeente"),
                                         request.getParameter("gebruikersnaam"), request.getParameter("paswoord"));
 
+        // Controleren of alle velden zijn ingevuld ( HTML tag 'required' wordt niet ondersteund door Safari)
+        if (nieuweKlant.getVoornaam() == null || nieuweKlant.getVoornaam().isEmpty()) {
+            fouten.add("Voornaam is niet ingevuld.");
+        }
+
+        if (nieuweKlant.getFamilienaam() == null || nieuweKlant.getFamilienaam().isEmpty()) {
+            fouten.add("Familienaam is niet ingevuld.");
+        }
+
+        if (nieuweKlant.getStraat() == null || nieuweKlant.getStraat().isEmpty()) {
+            fouten.add("Straat is niet ingevuld.");
+        }
+
+        if (nieuweKlant.getHuisnr() == null || nieuweKlant.getHuisnr().isEmpty()) {
+            fouten.add("Huisnr is niet ingevuld.");
+        }
+
+        if (nieuweKlant.getPostcode() == null || nieuweKlant.getPostcode().isEmpty()) {
+            fouten.add("Postcode is niet ingevuld.");
+        }
+
+        if (nieuweKlant.getGemeente() == null || nieuweKlant.getGemeente().isEmpty()) {
+            fouten.add("Gemeente is niet ingevuld.");
+        }
+
+        if (nieuweKlant.getGebruikersnaam() == null || nieuweKlant.getGebruikersnaam().isEmpty()) {
+            fouten.add("Gebruikersnaam is niet ingevuld.");
+        }
+
+        if (nieuweKlant.getPaswoord() == null || nieuweKlant.getPaswoord().isEmpty()) {
+            fouten.add("Paswoord is niet ingevuld.");
+        }
+
         // Paswoordcontrole
         if (!nieuweKlant.getPaswoord().equals(request.getParameter("controle"))) {
             fouten.add("Paswoord en Herhaal paswoord zijn verschillend.");
