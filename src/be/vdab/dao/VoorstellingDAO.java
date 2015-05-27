@@ -18,6 +18,12 @@ public class VoorstellingDAO extends AbstractDAO {
     private static final String FIND_ALL_SQL = BEGIN_SELECT + "WHERE genreid = ? AND datum >= NOW() ORDER BY datum";
     private static final String FIND_ONE_SQL = BEGIN_SELECT + "WHERE id = ?";
 
+    /**
+     * Finds all shows per genre.
+     *
+     * @param genreId  the genre id parameter
+     * @return a list of shows
+     */
     public List<Voorstelling> findAllPerGenre(Long genreId) {
         try (Connection connection = dataSource.getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(FIND_ALL_SQL)) {
@@ -35,6 +41,12 @@ public class VoorstellingDAO extends AbstractDAO {
         }
     }
 
+    /**
+     * Finds a specific show.
+     *
+     * @param id  the show id parameter
+     * @return the show
+     */
     public Voorstelling findOne(Long id) {
         try (Connection connection = dataSource.getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(FIND_ONE_SQL)) {

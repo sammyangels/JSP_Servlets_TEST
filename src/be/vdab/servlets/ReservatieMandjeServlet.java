@@ -28,11 +28,16 @@ public class ReservatieMandjeServlet extends HttpServlet {
     private final transient VoorstellingDAO voorstellingDAO = new VoorstellingDAO();
 
 
+    @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         request.setAttribute("pagina", "reservatiemandje");
         HttpSession session = request.getSession();
+
+        // Mandje oproepen
         @SuppressWarnings("unchecked")
         Map<Long, Long> mandje = (Map<Long, Long>) session.getAttribute("mandje");
+
+        // De aangevinkte reservaties in lijst plaatsen en vervolgens verwijderen
         if (request.getParameter("verwijder") != null) {
             Set<Long> verwijderReservaties = new LinkedHashSet<>();
             for (String teVerwijderen : request.getParameterValues("verwijder")) {
@@ -42,13 +47,18 @@ public class ReservatieMandjeServlet extends HttpServlet {
                 mandje.remove(reservatie);
             }
         }
+
+        // Mandje opnieuw instellen
         session.setAttribute("mandje", mandje);
         response.sendRedirect(response.encodeRedirectURL(request.getRequestURI()));
     }
 
+    @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         request.setAttribute("pagina", "reservatiemandje");
         HttpSession session = request.getSession();
+
+        // Mandje oproepen en totaal te betalen berekenen
         @SuppressWarnings("unchecked")
         Map<Long, Long> mandje = (Map<Long, Long>) session.getAttribute("mandje");
         List<Reservatie> reservaties = new ArrayList<>();
@@ -58,6 +68,8 @@ public class ReservatieMandjeServlet extends HttpServlet {
             reservaties.add(reservatie);
             totaal = totaal.add(reservatie.getVoorstelling().getPrijs().multiply(new BigDecimal(mandje.get(key))));
         }
+
+        // Totaal en reservaties instellen
         request.setAttribute("totaal", totaal);
         request.setAttribute("reservaties", reservaties);
         request.getRequestDispatcher(VIEW).forward(request, response);

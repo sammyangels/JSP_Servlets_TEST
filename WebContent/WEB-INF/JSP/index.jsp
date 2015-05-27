@@ -5,7 +5,7 @@
 
 <%-- Written by Samuel Engelen | Date: 13/05/2015 --%>
 
-<%@page contentType='text/html' pageEncoding='UTF-8' session='false' %>
+<%@page contentType='text/html' pageEncoding='UTF-8' %>
 <%@taglib prefix="vdab" uri="http://vdab.be/tags" %>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
@@ -31,9 +31,6 @@
                 <c:forEach var="voorstelling" items="${voorstellingen}">
                     <tr>
                         <td><fmt:formatDate value="${voorstelling.datum}" type="BOTH" dateStyle="short" timeStyle="short"/></td>
-
-                        <%--TODO Tijd wordt precies niet meegenomen uit de database => controleer of de juiste classes gebruikt worden --%>
-
                         <td>${voorstelling.titel}</td>
                         <td>${voorstelling.uitvoerders}</td>
                         <td><fmt:formatNumber value="${voorstelling.prijs}" type="currency"/></td>

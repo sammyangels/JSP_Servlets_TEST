@@ -18,7 +18,11 @@ public class GenreDAO extends AbstractDAO {
     private static final String READ_SQL = BEGIN_SELECT + "WHERE id=?";
 
 
-
+    /**
+     * Finds all entries in genres.
+     *
+     * @return a list of all genres
+     */
     public List<Genre> findAll() {
         try (Connection connection = dataSource.getConnection();
              Statement statement = connection.createStatement();
@@ -34,10 +38,17 @@ public class GenreDAO extends AbstractDAO {
         }
     }
 
+
     private Genre resultSetRijNaarGenre(ResultSet resultSet) throws SQLException {
         return new Genre(resultSet.getLong("id"), resultSet.getString("naam"));
     }
 
+    /**
+     * Finds a specific genre.
+     *
+     * @param id  the genre id (String) parameter
+     * @return the genre, null if not processed
+     */
     public Genre findByGenre(String id) {
         try (Connection connection = dataSource.getConnection();
              PreparedStatement statement = connection.prepareStatement(READ_SQL)) {
