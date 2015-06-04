@@ -4,8 +4,6 @@ package be.vdab.entities;
  * Created by Samuel Engelen on 13/05/2015.
  */
 public class Reservatie {
-//    private long id;
-//    private long klantid;
     private Voorstelling voorstelling;
     private long plaatsen;
 

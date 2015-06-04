@@ -55,10 +55,13 @@ public class KlantDAO extends AbstractDAO {
             statement.setString(6, klant.getGemeente());
             statement.setString(7, klant.getGebruikersnaam());
             statement.setString(8, klant.getPaswoord());
-            statement.executeUpdate();
-            try (ResultSet resultSet = statement.getGeneratedKeys()) {
-                resultSet.next();
-                klant.setId(resultSet.getLong(1));
+            if (statement.executeUpdate() != 0) {
+                try (ResultSet resultSet = statement.getGeneratedKeys()) {
+                    resultSet.next();
+                    klant.setId(resultSet.getLong(1));
+                }
+            } else {
+                logger.log(Level.SEVERE, "Probleem met database cultuurhuis", "Geen nieuwe klant aangemaakt");
             }
         } catch (SQLException ex) {
             logger.log(Level.SEVERE, "Probleem met database cultuurhuis", ex);

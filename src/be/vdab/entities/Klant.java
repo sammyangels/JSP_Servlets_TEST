@@ -45,64 +45,48 @@ public class Klant {
         return voornaam;
     }
 
-    public void setVoornaam(String voornaam) {
-        this.voornaam = voornaam;
-    }
-
     public String getFamilienaam() {
         return familienaam;
-    }
-
-    public void setFamilienaam(String familienaam) {
-        this.familienaam = familienaam;
     }
 
     public String getStraat() {
         return straat;
     }
 
-    public void setStraat(String straat) {
-        this.straat = straat;
-    }
-
     public String getHuisnr() {
         return huisnr;
-    }
-
-    public void setHuisnr(String huisnr) {
-        this.huisnr = huisnr;
     }
 
     public String getPostcode() {
         return postcode;
     }
 
-    public void setPostcode(String postcode) {
-        this.postcode = postcode;
-    }
-
     public String getGemeente() {
         return gemeente;
-    }
-
-    public void setGemeente(String gemeente) {
-        this.gemeente = gemeente;
     }
 
     public String getGebruikersnaam() {
         return gebruikersnaam;
     }
 
-    public void setGebruikersnaam(String gebruikersnaam) {
-        this.gebruikersnaam = gebruikersnaam;
-    }
-
     public String getPaswoord() {
         return paswoord;
     }
 
-    public void setPaswoord(String paswoord) {
-        this.paswoord = paswoord;
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Klant)) return false;
+
+        Klant klant = (Klant) o;
+
+        return getId() == klant.getId();
+
+    }
+
+    @Override
+    public int hashCode() {
+        return (int) (getId() ^ (getId() >>> 32));
     }
 
     @Override

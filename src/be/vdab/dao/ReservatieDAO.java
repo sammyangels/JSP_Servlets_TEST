@@ -1,8 +1,11 @@
 package be.vdab.dao;
 
+import jdk.nashorn.internal.ir.IfNode;
+
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import java.text.BreakIterator;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -31,16 +34,18 @@ public class ReservatieDAO extends AbstractDAO {
                 try (PreparedStatement statement = connection.prepareStatement(UPDATE_SQL)) {
                     statement.setLong(1, vrijeplaatsen - plaatsen);
                     statement.setLong(2, voorstellingsid);
-                    statement.executeUpdate();
+                    if (statement.executeUpdate() != 0) {
+                        try (PreparedStatement statement2 = connection.prepareStatement(INSERT_SQL)) {
+                            statement2.setLong(1, klantid);
+                            statement2.setLong(2, voorstellingsid);
+                            statement2.setLong(3, plaatsen);
+                            if (statement2.executeUpdate() != 0) {
+                                connection.commit();
+                                return true;
+                            } else return false;
+                        }
+                    } else return false;
                 }
-                try (PreparedStatement statement = connection.prepareStatement(INSERT_SQL)) {
-                    statement.setLong(1, klantid);
-                    statement.setLong(2, voorstellingsid);
-                    statement.setLong(3, plaatsen);
-                    statement.executeUpdate();
-                }
-                connection.commit();
-                return true;
             } else return false;
         } catch (SQLException ex) {
             logger.log(Level.SEVERE, "Probleem met database cultuurhuis", ex);
