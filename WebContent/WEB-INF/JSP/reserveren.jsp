@@ -31,7 +31,7 @@
     </dl>
     <form method="post" id="reserveerform">
       <label>Plaatsen:<span>${foutmelding}</span>
-        <input name="plaatsen" value="${plaatsen}" autofocus required/>
+        <input name="plaatsen" value="${plaatsen}" autofocus required type="number" step="1"/>
       </label>
       <input type="submit" value="Reserveren" id="reserveerknop"/>
     </form>
