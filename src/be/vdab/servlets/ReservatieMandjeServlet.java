@@ -23,7 +23,6 @@ import java.util.*;
 public class ReservatieMandjeServlet extends HttpServlet {
     private static final long serialVersionUID = 1L;
     private static final String VIEW = "/WEB-INF/JSP/reservatiemandje.jsp";
-//    private static final String REDIRECT_URL = "%s/reservatiemandje.htm";
 
     private final transient VoorstellingDAO voorstellingDAO = new VoorstellingDAO();
 
