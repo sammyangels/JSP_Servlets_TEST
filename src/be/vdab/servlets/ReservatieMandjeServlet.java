@@ -16,9 +16,6 @@ import java.io.IOException;
 import java.math.BigDecimal;
 import java.util.*;
 
-/**
- * Created by Samuel Engelen on 19/05/2015.
- */
 @WebServlet(urlPatterns = "/reservatiemandje.htm", name = "ReservatieMandjeServlet")
 public class ReservatieMandjeServlet extends HttpServlet {
     private static final long serialVersionUID = 1L;

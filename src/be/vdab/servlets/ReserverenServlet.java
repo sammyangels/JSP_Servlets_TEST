@@ -16,9 +16,6 @@ import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
-/**
- * Created by Samuel Engelen on 15/05/15.
- */
 @WebServlet(urlPatterns = "/reserveren.htm", name = "ReserverenServlet")
 public class ReserverenServlet extends HttpServlet {
     private static final long serialVersionUID = 1L;

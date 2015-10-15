@@ -16,9 +16,6 @@ import javax.sql.DataSource;
 import java.io.IOException;
 import java.util.List;
 
-/**
- * Created by Samuel Engelen on 13/05/2015.
- */
 @WebServlet(urlPatterns = "/index.htm", name = "IndexServlet")
 public class IndexServlet extends HttpServlet {
     private static final long serialVersionUID = 1L;

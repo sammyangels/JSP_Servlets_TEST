@@ -6,9 +6,6 @@ import java.sql.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-/**
- * Created by Samuel Engelen on 21/05/2015.
- */
 public class KlantDAO extends AbstractDAO {
     private final static Logger logger = Logger.getLogger(KlantDAO.class.getName());
 
@@ -68,6 +65,7 @@ public class KlantDAO extends AbstractDAO {
             throw new DAOException(ex);
         }
     }
+
 
     private Klant resultSetRijNaarKlanten(ResultSet resultSet) throws SQLException {
         return new Klant(resultSet.getLong("id"), resultSet.getString("voornaam"),

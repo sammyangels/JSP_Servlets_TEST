@@ -2,8 +2,6 @@
 <%--@elvariable id="gelukt" type="be.vdab.servlets.overzichtservlet"--%>
 <%--@elvariable id="mislukt" type="be.vdab.servlets.overzichtservlet"--%>
 
-<%-- Written by Samuel Engelen | Date: 26/05/2015 --%>
-
 <%@page contentType='text/html' pageEncoding='UTF-8' %>
 <%@taglib prefix="vdab" uri="http://vdab.be/tags" %>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>

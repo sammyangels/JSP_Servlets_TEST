@@ -15,9 +15,6 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Created by Samuel Engelen on 21/05/2015.
- */
 @WebServlet(urlPatterns = "/nieuweklant.htm", name = "NieuweKlantServlet")
 public class NieuweKlantServlet extends HttpServlet {
     private static final long serialVersionUID = 1L;

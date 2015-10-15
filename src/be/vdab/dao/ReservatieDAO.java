@@ -1,17 +1,12 @@
 package be.vdab.dao;
 
-import jdk.nashorn.internal.ir.IfNode;
-
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
-import java.text.BreakIterator;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-/**
- * Created by Samuel Engelen on 21/05/2015.
- */
+
 public class ReservatieDAO extends AbstractDAO {
     private static final Logger logger = Logger.getLogger(ReservatieDAO.class.getName());
 

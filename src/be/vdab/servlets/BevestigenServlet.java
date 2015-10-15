@@ -20,9 +20,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-/**
- * Created by Samuel Engelen on 21/05/2015.
- */
 @WebServlet(urlPatterns = "/bevestigen.htm", name = "BevestigenServlet")
 public class BevestigenServlet extends HttpServlet {
     private static final long serialVersionUID = 1L;

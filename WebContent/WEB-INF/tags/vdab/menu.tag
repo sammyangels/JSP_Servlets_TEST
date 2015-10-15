@@ -1,5 +1,4 @@
 <%--@elvariable id="mandje" type="be.vdab.servlets.reserverenservlet"--%>
-
 <%--@elvariable id="genres" type="be.vdab.servlets.IndexServlet"--%>
 
 <%@tag description='menu' pageEncoding='UTF-8'%>

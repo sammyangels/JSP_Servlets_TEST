@@ -4,9 +4,6 @@ import java.math.BigDecimal;
 //import java.sql.Date;
 import java.sql.Timestamp;
 
-/**
- * Created by Samuel Engelen on 13/05/2015.
- */
 public class Voorstelling {
     private long id;
     private String titel;

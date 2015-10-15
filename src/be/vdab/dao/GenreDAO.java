@@ -7,9 +7,6 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-/**
- * Created by Samuel Engelen on 28/04/2015.
- */
 public class GenreDAO extends AbstractDAO {
     private final static Logger logger = Logger.getLogger(GenreDAO.class.getName());
 

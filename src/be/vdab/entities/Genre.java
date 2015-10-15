@@ -1,8 +1,5 @@
 package be.vdab.entities;
 
-/**
- * Created by Samuel Engelen on 13/05/2015.
- */
 public class Genre {
     private long id;
     private String naam;

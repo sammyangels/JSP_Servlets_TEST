@@ -1,7 +1,5 @@
 <%--@elvariable id="pagina" type="be.vdab.servlets.NieuweKlantServlet"--%>
 
-<%-- Written by Samuel Engelen | Date: 21/05/2015 --%>
-
 <%@page contentType='text/html' pageEncoding='UTF-8'%>
 <%@taglib prefix="vdab" uri="http://vdab.be/tags" %>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>

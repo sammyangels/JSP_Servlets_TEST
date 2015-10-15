@@ -9,7 +9,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
- * Created by Samuel Engelen on 28/04/2015.
+ *
  */
 public class VoorstellingDAO extends AbstractDAO {
     private final static Logger logger = Logger.getLogger(VoorstellingDAO.class.getName());

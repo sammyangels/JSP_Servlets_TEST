@@ -8,9 +8,6 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
-/**
- * Created by Samuel Engelen on 22/05/2015.
- */
 @WebServlet(urlPatterns = "/overzicht.htm", name = "OverzichtServlet")
 public class OverzichtServlet extends HttpServlet {
     private static final long serialVersionUID = 1L;
